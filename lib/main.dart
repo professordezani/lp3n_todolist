@@ -1,8 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/create.dart';
 import 'package:todolist/lista.dart';
 
-void main() {
+const firebaseConfig = FirebaseOptions(
+  apiKey: "AIzaSyBPRdV8Io9qrNuijLKhevQp-ipIq0B8yLU",
+  authDomain: "todolist-lp3n-2025-01.firebaseapp.com",
+  projectId: "todolist-lp3n-2025-01",
+  storageBucket: "todolist-lp3n-2025-01.firebasestorage.app",
+  messagingSenderId: "309621707465",
+  appId: "1:309621707465:web:91a41adcd2ce992a753318"
+);
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: firebaseConfig);
   runApp(TodoListApp());
 }
 
