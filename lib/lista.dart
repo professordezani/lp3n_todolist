@@ -10,7 +10,11 @@ class ListaPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Tasks")),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: FirebaseFirestore.instance.collection("tasks").snapshots(),
+        stream: FirebaseFirestore.instance
+          .collection("tasks")
+          .where('completed', isEqualTo: false)
+          .orderBy('title')
+          .snapshots(),
         builder: (context, snapshot) {
 
           if(!snapshot.hasData)
