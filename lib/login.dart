@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,11 +8,21 @@ class LoginPage extends StatelessWidget {
   var txtEmail = TextEditingController();
   var txtSenha = TextEditingController();
 
-  void login(BuildContext context) {
+  void login(BuildContext context) async {
 
     // TODO: Implementar Login usando Firebase
-    
-    Navigator.pushReplacementNamed(context, "/lista");
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: txtEmail.text,
+        password: txtSenha.text
+      );
+
+      Navigator.pushReplacementNamed(context, "/lista");
+    }
+    on FirebaseAuthException catch(ex) {
+      var snackBar = SnackBar(content: Text(ex.message!));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }    
   }
 
   @override
