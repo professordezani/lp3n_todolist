@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/create.dart';
 import 'package:todolist/lista.dart';
+import 'package:todolist/login.dart';
+import 'package:todolist/registro.dart';
 
 const firebaseConfig = FirebaseOptions(
   apiKey: "AIzaSyBPRdV8Io9qrNuijLKhevQp-ipIq0B8yLU",
@@ -24,12 +26,15 @@ class TodoListApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: false),
       routes: {
         "/lista":(context) => ListaPage(),
-        "/create":(context) => CreatePage()
+        "/create":(context) => CreatePage(),
+        "/login":(context) => LoginPage(),
+        "/registro":(context) => RegistroPage(),
       },
-      initialRoute: "/lista",
+      initialRoute: "/login",
     );
   }
 }

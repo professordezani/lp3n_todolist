@@ -8,12 +8,20 @@ class ListaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Tasks")),
+      appBar: AppBar(
+        title: Text("Tasks"),
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.pushReplacementNamed(context, "/login"),
+            icon: Icon(Icons.logout)
+          )
+        ],
+      ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
           .collection("tasks")
-          .where('completed', isEqualTo: false)
-          .orderBy('title')
+          // .where('completed', isEqualTo: false)
+          // .orderBy('title')
           .snapshots(),
         builder: (context, snapshot) {
 
