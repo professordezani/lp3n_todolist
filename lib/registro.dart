@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegistroPage extends StatelessWidget {
@@ -8,11 +9,21 @@ class RegistroPage extends StatelessWidget {
   var txtEmail = TextEditingController();
   var txtSenha = TextEditingController();
 
-  void registrar(BuildContext context) {
+  void registrar(BuildContext context) async {
 
-    // TODO: Implementar registro usando Firebase Auth
-    
-    Navigator.of(context)..pop()..pushReplacementNamed("/lista");
+  try {
+      var credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: txtEmail.text,
+        password: txtSenha.text
+      );
+
+      await credential.user!.updateDisplayName(txtNome.text);
+      
+      Navigator.of(context)..pop()..pushReplacementNamed("/lista");
+    } on FirebaseAuthException catch(ex) {
+      var snackBar = SnackBar(content: Text(ex.message!));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   @override

@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
     // TODO: Implementar Login usando Firebase
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: txtEmail.text,
+        email: txtEmail.text.trim(),
         password: txtSenha.text
       );
 

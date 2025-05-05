@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ListaPage extends StatelessWidget {
@@ -20,7 +21,7 @@ class ListaPage extends StatelessWidget {
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
           .collection("tasks")
-          // .where('completed', isEqualTo: false)
+          .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           // .orderBy('title')
           .snapshots(),
         builder: (context, snapshot) {
